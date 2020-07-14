@@ -28,17 +28,19 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg bg-dark navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="/">Podium</a>
+      <a class="navbar-brand" href="{{route('article.index')}}">Podium</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
+
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link btn btn-success btn-flat" data-toggle="modal" data-target="#signInModal" href="#">Get Started</a>
           </li>
         </ul>
+
       </div>
     </div>
   </nav>
@@ -66,20 +68,9 @@
       <div class="col-lg-10 mx-auto">
         <p class="text-center">There are many topics you can write in</p>
         <div class="content-tag text-center">
-          <button type="button" class="btn btn-outline-success mb-1">Success</button>
-          <button type="button" class="btn btn-outline-danger mb-1">Danger</button>
-          <button type="button" class="btn btn-outline-success mb-1">Success</button>
-          <button type="button" class="btn btn-outline-danger mb-1">Danger</button>
-          <button type="button" class="btn btn-outline-success mb-1">Success</button>
-          <button type="button" class="btn btn-outline-danger mb-1">Danger</button>
-          <button type="button" class="btn btn-outline-success mb-1">Success</button>
-          <button type="button" class="btn btn-outline-danger mb-1">Danger</button>
-          <button type="button" class="btn btn-outline-success mb-1">Success</button>
-          <button type="button" class="btn btn-outline-danger mb-1">Danger</button>
-          <button type="button" class="btn btn-outline-success mb-1">Success</button>
-          <button type="button" class="btn btn-outline-danger mb-1">Danger</button>
-          <button type="button" class="btn btn-outline-success mb-1">Success</button>
-          <button type="button" class="btn btn-outline-danger mb-1">Danger</button>
+          @foreach($tags as $tag)
+          <button type="button" class="btn btn-outline-danger mb-1">{{$tag->name}}</button>
+          @endforeach
         </div>
       </div>
     </div>

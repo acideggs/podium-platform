@@ -8,66 +8,37 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
+
+      @foreach($articles as $key => $value)
       <div class="post-preview">
-        <a href="post.html">
+        <a href="{{ route('article.show', ['article' => $value->id]) }}">
           <h6 class="post-title">
-            Man must explore, and this is exploration at its greatest
+            {{ $value->title }}
           </h6>
           <h6 class="post-subtitle">
-            Problems look mighty small from 150 miles up
+
+            {{  strlen(strip_tags($value->content)) > 80 ? substr(strip_tags($value->content),0,80)."..." : strip_tags($value->content) }}
+
           </h6>
         </a>
         <p class="post-meta">Posted by
-          <a href="#">Start Bootstrap</a>
-        on September 24, 2019</p>
+          <a href="#">{{ $value->user->name }}</a> {{date_format(date_create($value->updated_at),'F, d Y ')}} , <i class="fa fa-tag"></i> &nbsp; @foreach($value->tags as $key => $tag) <a href="#"><span class="badge badge-success">{{$tag->name}}</span></a> @endforeach
+        </p>
       </div>
-      <hr>
-      <div class="post-preview">
-        <a href="post.html">
-          <h6 class="post-title">
-            Man must explore, and this is exploration at its greatest
-          </h6>
-          <h6 class="post-subtitle">
-            Problems look mighty small from 150 miles up
-          </h6>
-        </a>
-        <p class="post-meta">Posted by
-          <a href="#">Start Bootstrap</a>
-        on September 24, 2019</p>
+      @endforeach
+
+      @if($articles->isEmpty())
+
+      <div class="card mt-5">
+        <div class="card-body">
+
+          <h4 class="text-center">Tidak ada postingan</h4>
+
+        </div>
       </div>
-      <hr>
-      <div class="post-preview">
-        <a href="post.html">
-          <h6 class="post-title">
-            Man must explore, and this is exploration at its greatest
-          </h6>
-          <h6 class="post-subtitle">
-            Problems look mighty small from 150 miles up
-          </h6>
-        </a>
-        <p class="post-meta">Posted by
-          <a href="#">Start Bootstrap</a>
-        on September 24, 2019</p>
-      </div>
-      <hr>
-      <div class="post-preview">
-        <a href="post.html">
-          <h6 class="post-title">
-            Man must explore, and this is exploration at its greatest
-          </h6>
-          <h6 class="post-subtitle">
-            Problems look mighty small from 150 miles up
-          </h6>
-        </a>
-        <p class="post-meta">Posted by
-          <a href="#">Start Bootstrap</a>
-        on September 24, 2019</p>
-      </div>
-      <hr>
-      <!-- Pager -->
-      <div class="clearfix">
-        <a class="btn btn-primary btn-flat float-right" href="#">Older Posts &rarr;</a>
-      </div>
+
+      @endif
+
     </div>
   </div>
 </div>
