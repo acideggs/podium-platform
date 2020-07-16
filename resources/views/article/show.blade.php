@@ -12,7 +12,7 @@
 				<p>
 					<small>By : {{ $article->user->name }} - {{date_format(date_create($article->updated_at),'F, d Y ')}}</small><br>
 					<i class="fa fa-tag"></i>
-					@foreach($article->tags as $key => $tag) <a href="#"><span class="badge badge-success">{{$tag->name}}</span></a> @endforeach
+					@foreach($article->tags as $key => $tag) <a href="{{ route('article.tag', ['tagId' => $tag->id]) }}"><span class="badge badge-success">{{$tag->name}}</span></a> @endforeach
 				</p>
 			</div>
 		</div>

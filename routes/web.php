@@ -18,3 +18,5 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::resource('article', 'ArticleController');
 
 Route::get('/article/{id}/list', 'ArticleController@indexByUser')->name('article.list');
+
+Route::get('/article/{tagId}/tag', 'ArticleController@indexByTag')->name('article.tag');

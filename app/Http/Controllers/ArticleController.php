@@ -10,11 +10,11 @@ class ArticleController extends Controller
 {
 
     /*
-        Proteksi fungsi selain index
-    */
+     * Proteksi fungsi selain index
+     */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth')->except(['index', 'show', 'indexByTag']);
     }
 
     /**
@@ -30,23 +30,33 @@ class ArticleController extends Controller
     }
 
     /*
-        
-        Menampilkan Data Artikel Berdasarkan User
+     *   Menampilkan Data Artikel Berdasarkan User
+     */
 
-    */
+    public function indexByUser($id)
+    {
+        $articles = Article::where('user_id', $id)->get();
 
-        public function indexByUser($id)
-        {
-            $articles = Article::where('user_id', $id)->get();
+        return view('article.list', ['articles' => $articles]);
+    }
 
-            return view('article.list', ['articles' => $articles]);
-        }
+    /*
+     *   Menampilkan Data Artikel Berdasarkan Tag
+     */
+    public function indexByTag($tagId)
+    {
+        $tag = Tag::with('articles')->where('id', $tagId)->first();
+
+        // dd($tag);
+        return view('tag.list', ['tag' => $tag]);
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
 
