@@ -14,7 +14,7 @@ class ArticleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show', 'indexByTag']);
+        $this->middleware('auth')->except(['index', 'show', 'indexByTag', 'indexByKeyword']);
     }
 
     /**
@@ -49,6 +49,16 @@ class ArticleController extends Controller
 
         // dd($tag);
         return view('tag.list', ['tag' => $tag]);
+    }
+
+    /*
+     *  Menampilkan Data Artikel Berdasarkan Kata Kunci
+     */
+    public function indexByKeyword(Request $request)
+    {
+        $articles = Article::where('title','Like', "%$request->keyword%")->get();
+
+        return view('article.list', ['articles' => $articles]);
     }
 
     /**

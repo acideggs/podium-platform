@@ -43,8 +43,13 @@
 
           @guest
 
+          <form class="form-inline" action="{{ route('article.search') }}" method="POST">
+            @csrf
+            <input class="form-control mr-5" name="keyword" style="border-radius:0;" type="search" placeholder="Search" aria-label="Search">
+          </form>
+
           <li class="nav-item">
-            <a href="{{ route('login') }}" class="btn btn-success btn-flat">Login</a>
+            <a href="{{ route('login') }}" class="btn btn-outline-success btn-flat">Login</a>
           </li>
 
           @else
