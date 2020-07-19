@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Your Article')
+@section('title', 'Your Response')
 
 @section('content')  
 
@@ -9,20 +9,19 @@
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
 
-      @foreach($articles as $key => $value)
+      @foreach($responses as $response)
       <div class="post-preview">
 
         @guest
 
         @else
-        @if($value->user->id == Auth::id())
+        @if($response->user_id == Auth::id())
         <div class="action float-right">
-
-          <form action="{{ route('article.edit', ['article' => $value->id]) }}" method="GET">
+          <form action="#" method="GET">
             @csrf
             <button type="submit" class="btn" ><i class="fas fa-pencil-alt" style="font-size: 20px;"></i></button>
           </form>
-          <form action="{{ route('article.destroy', ['article' => $value->id]) }}" method="POST">
+          <form action="#" method="POST">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn" onclick="return confirm('Delete this Article?')"><i class='fas fa-trash-alt' style="font-size: 20px;"></i></button>
@@ -31,20 +30,20 @@
         @endif
         @endguest
 
-        <a href="{{ route('article.show', ['article' => $value->id]) }}">
+        <a href="{{ route('article.show', ['article' => $response->article->id]) }}">
           <h6 class="post-title">
-            {{ $value->title }} 
+            {{ $response->article->title }} 
           </h6>
         </a>
         
         <h6 class="post-subtitle" style="font-weight: normal;">
 
-          {{  strlen(strip_tags($value->content)) > 80 ? substr(strip_tags($value->content),0,80)."..." : strip_tags($value->content) }}
+          {{  strlen(strip_tags($response->response)) > 80 ? substr(strip_tags($response->response),0,80)."..." : strip_tags($response->response) }}
 
         </h6>
         
         <p class="post-meta">Posted by
-          <a href="#">{{ $value->user->name }}</a> {{date_format(date_create($value->updated_at),'F, d Y ')}} , <i class="fa fa-tag"></i> &nbsp; @foreach($value->tags as $key => $tag) <a href="{{ route('article.tag', ['tagId' => $tag->id]) }}"><span class="badge badge-success">{{$tag->name}}</span></a> @endforeach
+          <a href="#">{{ $response->user->name }}</a> {{date_format(date_create($response->updated_at),'F, d Y ')}}
         </p>
       </div>
 
@@ -52,7 +51,7 @@
 
       @endforeach
 
-      @if($articles->isEmpty())
+      @if($responses->isEmpty())
 
       <div class="card mt-5">
         <div class="card-body">

@@ -19,4 +19,9 @@ class Article extends Model
     	return $this->belongsTo('App\User');
 
     }
+
+    public function responses(){
+    	return $this->hasMany('App\Response');
+    }
+    
 }

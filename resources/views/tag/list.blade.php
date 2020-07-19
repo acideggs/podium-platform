@@ -12,19 +12,6 @@
       @foreach($tag->articles as $article)
       <div class="post-preview">
 
-        @guest
-
-        @else
-        <div class="action float-right">
-          <a href="{{ route('article.edit', ['article' => $article->id]) }}"><i class="fas fa-pencil-alt"></i></a>
-          <form action="{{ route('article.destroy', ['article' => $article->id]) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn" onclick="return confirm('Delete this Article?')"><i class='fas fa-trash-alt'></i></button>
-          </form>
-        </div>
-        @endguest
-
         <a href="{{ route('article.show', ['article' => $article->id]) }}">
           <h6 class="post-title">
             {{ $article->title }} 
@@ -41,6 +28,9 @@
           <a href="#">{{ $article->user->name }}</a> {{date_format(date_create($article->updated_at),'F, d Y ')}} , <i class="fa fa-tag"></i> &nbsp; @foreach($article->tags as $tagItem) <a href="{{ route('article.tag', ['tagId' => $tagItem->id]) }}"><span class="badge badge-success">{{$tagItem->name}}</span></a> @endforeach
         </p>
       </div>
+
+      <hr>
+      
       @endforeach
 
       @if($tag->articles->isEmpty())

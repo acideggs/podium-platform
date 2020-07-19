@@ -41,12 +41,12 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
 
-          @guest
-
           <form class="form-inline" action="{{ route('article.search') }}" method="POST">
             @csrf
             <input class="form-control mr-5" name="keyword" style="border-radius:0;" type="search" placeholder="Search" aria-label="Search">
           </form>
+
+          @guest
 
           <li class="nav-item">
             <a href="{{ route('login') }}" class="btn btn-outline-success btn-flat">Login</a>
@@ -66,7 +66,7 @@
               <a class="dropdown-item" href="{{ route('article.list', ['id' => Auth::id()]) }}">Your Article</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Subscription</a>
-              <a class="dropdown-item" href="#">Your Comment</a>
+              <a class="dropdown-item" href="{{ route('response.list', ['id' => Auth::id()]) }}">Your Response</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Profile</a>
               <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }} </a>

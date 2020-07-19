@@ -69,7 +69,7 @@
         <p class="text-center">There are many topics you can write in</p>
         <div class="content-tag text-center">
           @foreach($tags as $tag)
-          <button type="button" class="btn btn-outline-danger mb-1">{{$tag->name}}</button>
+          <a href="{{ route('article.tag', ['tagId' => $tag->id]) }}" class="btn btn-outline-danger mb-1">{{$tag->name}}</a>
           @endforeach
         </div>
       </div>
@@ -79,7 +79,7 @@
         <div class="content-tag text-center">
           <button class="btn btn-lg btn-success btn-flat" data-toggle="modal" data-target="#signInModal">Get Started</button>
           <p>
-            <small>Already have an account?<br><a href="#">Sign In</a></small>
+            <small>Already have an account?<br><a href="{{ route('login') }}">Sign In</a></small>
           </p>
         </div>
       </div>
