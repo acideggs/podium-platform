@@ -35,7 +35,7 @@
 			<div class="col-lg-8 col-md-10 mx-auto">
 				<div class="response float-left">
 					<a href="#"><i class='far fa-heart mr-3' style="font-size:24px;"></i></a>
-					<a href="#"><i class='far fa-comment mr-3' style='font-size:24px'></i></a>
+					<button class="btn btn-flat" data-toggle="modal" data-target="#responseModal"><i class='far fa-comment mr-3' style='font-size:24px'></i></button>
 				</div>
 				<div class="feed float-right">
 					<a href="#"><i class="fab fa-twitter mr-3" style="font-size:24px"></i></a>
@@ -57,5 +57,50 @@
 		</div>
 	</div>
 </article>
+
+<div class="modal fade" id="responseModal" tabindex="-1" role="dialog" aria-labelledby="responseModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable">
+		<div class="modal-content">
+
+			<div class="modal-body p-4">
+
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+				@guest
+				<small>Log in to write your response</small>
+				@else
+				<small>Write Your Response</small>
+				<form class="my-3" action="{{ route('response.store') }}" method="POST">
+					@csrf
+					<input type="hidden" name="user_id" value="{{ Auth::id() }}">
+					<input type="hidden" name="article_id" value="{{ $article->id }}">
+					<textarea class="form-control mb-3" name="response"></textarea>
+					<button type="submit" class="btn btn-primary btn-flat">Send Response</button>
+				</form>
+				@endguest
+
+				<hr>
+
+				<h5 class="text-center mb-3">Responses</h5>
+
+				@if($article->responses->isEmpty())
+				<p class="font-italic text-center"><small>Nobody send their response</small></p>
+				@else
+				@foreach($article->responses as $response)
+				<div class="card m-2">
+					<div class="card-body text-left">
+						{{ $response->response }}<br>
+						<small>By : {{$response->user->name}} at {{date_format(date_create($response->updated_at),'F, d Y ')}}</small>
+					</div>
+				</div>
+				@endforeach
+				@endif
+
+				<hr>
+
+			</div>
+		</div>
+	</div>
+</div>
 
 @endsection

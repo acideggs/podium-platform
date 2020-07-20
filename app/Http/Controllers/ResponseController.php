@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Response;
 
 class ResponseController extends Controller
@@ -27,16 +29,6 @@ class ResponseController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -44,18 +36,15 @@ class ResponseController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'response'     => 'required',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        // dd($request->all());
+
+        Response::create($request->all());
+
+        return redirect()->route('article.show', ['article' => $request->article_id]);
     }
 
     /**
@@ -66,7 +55,8 @@ class ResponseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $response = Response::find($id)->first();
+        return view('response.edit', ['response' => $response]);
     }
 
     /**
@@ -78,7 +68,11 @@ class ResponseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $response = Response::find($id);
+        $response->response = $request->response;
+        $response->save();
+
+        return redirect()->route('response.list', ['id' => Auth::id()])->with('success', 'Data berhasil diupdate');
     }
 
     /**
@@ -89,6 +83,9 @@ class ResponseController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        Response::destroy($id);
+
+        return redirect()->route('response.list', ['id' => Auth::id()])->with('success', 'Data berhasil dihapus');
     }
 }

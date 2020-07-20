@@ -17,14 +17,14 @@
         @else
         @if($response->user_id == Auth::id())
         <div class="action float-right">
-          <form action="#" method="GET">
+          <form action="{{ route('response.edit', ['response' => $response->id]) }}" method="GET">
             @csrf
             <button type="submit" class="btn" ><i class="fas fa-pencil-alt" style="font-size: 20px;"></i></button>
           </form>
-          <form action="#" method="POST">
+          <form action="{{ route('response.destroy', ['response' => $response->id]) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn" onclick="return confirm('Delete this Article?')"><i class='fas fa-trash-alt' style="font-size: 20px;"></i></button>
+            <button type="submit" class="btn" onclick="return confirm('Delete this Response?')"><i class='fas fa-trash-alt' style="font-size: 20px;"></i></button>
           </form>
         </div>
         @endif
@@ -56,7 +56,7 @@
       <div class="card mt-5">
         <div class="card-body">
 
-          <h4 class="text-center">Tidak ada postingan</h4>
+          <h4 class="text-center">You have'nt any response</h4>
 
         </div>
       </div>
