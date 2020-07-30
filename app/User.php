@@ -37,6 +37,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function profile(){
+        return $this->hasOne('App\Profile');
+    }
+
     public function follow(){
         return $this->belongsToMany(
             self::class, 

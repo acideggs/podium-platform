@@ -52,6 +52,8 @@
 					<small>Written By :</small>
 					<h3>{{ $article->user->name }}</h3>
 				</div>
+				@guest
+				@else
 				@if($article->user->id !== Auth::id())
 				<div class="feed float-right">
 					@if(Auth::user()->follow()->first() != null)
@@ -67,6 +69,7 @@
 					@endif
 				</div>
 				@endif
+				@endguest
 			</div>
 		</div>
 	</div>

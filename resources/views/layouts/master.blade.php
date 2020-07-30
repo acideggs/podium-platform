@@ -54,21 +54,20 @@
 
           @else
 
-          <li class="nav-item">
-            <a href="#">Notifications</a>
-          </li>
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</a>
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <img src="{{ asset('img/profiles/' . auth()->user()->profile()->first()->photo) }}" alt="avatar" class="avatar ml-4">
+              <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('article.create') }}">New Article</a>
               <a class="dropdown-item" href="{{ route('article.list', ['id' => Auth::id()]) }}">Your Article</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Subscription</a>
               <a class="dropdown-item" href="{{ route('response.list', ['id' => Auth::id()]) }}">Your Response</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Profile</a>
+              <a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a>
               <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }} </a>
               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf

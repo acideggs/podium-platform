@@ -47,7 +47,6 @@ class ArticleController extends Controller
     {
         $tag = Tag::with('articles')->where('id', $tagId)->first();
 
-        // dd($tag);
         return view('tag.list', ['tag' => $tag]);
     }
 
