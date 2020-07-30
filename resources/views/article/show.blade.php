@@ -33,9 +33,11 @@
 
 		<div class="row">
 			<div class="col-lg-8 col-md-10 mx-auto">
-				<div class="response float-left">
-					<a href="#"><i class='far fa-heart mr-3' style="font-size:24px;"></i></a>
-					<button class="btn btn-flat" data-toggle="modal" data-target="#responseModal"><i class='far fa-comment mr-3' style='font-size:24px'></i></button>
+				<div class="response float-left ">
+					<form style="display: inline;">
+						<button type="submit" class="btn btn-flat btn-small"><i class='far fa-heart mr-3' style="font-size:24px;"></i></button>
+					</form>
+					<button class="btn btn-flat btn-small" data-toggle="modal" data-target="#responseModal"><i class='far fa-comment mr-3' style='font-size:24px'></i></button>
 				</div>
 				<div class="feed float-right">
 					<a href="#"><i class="fab fa-twitter mr-3" style="font-size:24px"></i></a>
@@ -50,9 +52,21 @@
 					<small>Written By :</small>
 					<h3>{{ $article->user->name }}</h3>
 				</div>
+				@if($article->user->id !== Auth::id())
 				<div class="feed float-right">
-					<a href="#" class="btn btn-outline-primary mt-2">Follow</a>
+					@if(Auth::user()->follow()->first() != null)
+					<button type="submit" class="btn btn-outline-primary mt-3" disabled>Followed</button>
+					@else
+					<form action="{{route('follow')}}" method="POST">
+						@csrf
+						<input type="hidden" name="user_id" value="{{Auth::id()}}">
+						<input type="hidden" name="article_id" value="{{$article->id}}">
+						<input type="hidden" name="user_followed_id" value="{{$article->user->id}}">
+						<button type="submit" class="btn btn-outline-primary mt-3">Follow</button>
+					</form>
+					@endif
 				</div>
+				@endif
 			</div>
 		</div>
 	</div>

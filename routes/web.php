@@ -34,3 +34,9 @@ Route::get('/article/{tagId}/tag', 'ArticleController@indexByTag')->name('articl
 Route::resource('response', 'ResponseController', ['only' => ['store', 'update', 'destroy', 'edit']]);
 
 Route::get('/response/{id}/list', 'ResponseController@index')->name('response.list');
+
+/**
+ * Route block for Follow
+ */
+
+Route::post('/follow', 'FollowController@follow')->name('follow');
