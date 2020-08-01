@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Profile;
 
 class ProfileController extends Controller
 {
@@ -19,6 +20,11 @@ class ProfileController extends Controller
 			$profile = auth()->user()->profile()->first();
 		}
 		return view('profile', compact('profile'));
+	}
+
+	public function showByUser(Profile $profile){
+		// dd($profile);
+		return view('showProfile', compact('profile'));
 	}
 
 	public function store(Request $request){

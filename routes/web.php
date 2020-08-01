@@ -19,9 +19,12 @@ Route::get('/', 'HomeController@index')->name('home');
  *  Route Block For Profiles
  */
 
-Route::get('profile', 'ProfileController@show')->name('profile.show');
-Route::post('profile', 'ProfileController@store')->name('profile.store');
-Route::put('profile', 'ProfileController@update')->name('profile.update');
+Route::middleware(['auth'])->group(function(){
+	Route::get('profile', 'ProfileController@show')->name('profile.show');
+	Route::get('profile/{profile}', 'ProfileController@showByUser')->name('profile.user.show');
+	Route::post('profile', 'ProfileController@store')->name('profile.store');
+	Route::put('profile', 'ProfileController@update')->name('profile.update');
+});
 
 /*
  *  Route Block For Articles
