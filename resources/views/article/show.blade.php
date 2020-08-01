@@ -56,7 +56,7 @@
 				@else
 				@if($article->user->id !== Auth::id())
 				<div class="feed float-right">
-					@if(Auth::user()->follow()->first() != null)
+					@if($is_followed)
 					<button type="submit" class="btn btn-outline-primary mt-3" disabled>Followed</button>
 					@else
 					<form action="{{route('follow')}}" method="POST">

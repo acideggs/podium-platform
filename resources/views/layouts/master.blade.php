@@ -59,12 +59,17 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</a>
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              @if(auth()->user()->profile()->first() === null )
+              <img src="{{ asset('img/blank-profile-picture.png') }}" alt="avatar" class="avatar ml-4">
+              @else
               <img src="{{ asset('img/profiles/' . auth()->user()->profile()->first()->photo) }}" alt="avatar" class="avatar ml-4">
+              @endif
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('article.create') }}">New Article</a>
               <a class="dropdown-item" href="{{ route('article.list', ['id' => Auth::id()]) }}">Your Article</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Subscription</a>
+              <a class="dropdown-item" href="{{ route('following') }}">Following</a>
+              <a class="dropdown-item" href="{{ route('follower') }}">Follower</a>
               <a class="dropdown-item" href="{{ route('response.list', ['id' => Auth::id()]) }}">Your Response</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a>

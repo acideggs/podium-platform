@@ -8,14 +8,17 @@ use Auth;
 
 class FollowController extends Controller
 {
-    public function indexByUser($id){
+    public function following(){
+        $following = auth()->user()->follow()->get();
+        return view('following', compact('following'));
+    }
 
+    public function follower(){
+        $follower = auth()->user()->follower()->get();
+        return view('follower', compact('follower'));
     }
 
     public function follow(Request $request){
-
-        // dd(Auth::user()->follow()->first() != null);
-
         $data = [
             'user_id'           => $request->user_id,
             'user_followed_id'  => $request->user_followed_id,

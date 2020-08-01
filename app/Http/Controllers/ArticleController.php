@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Article;
 use App\Tag;
+use App\Follow;
 
 class ArticleController extends Controller
 {
@@ -118,9 +119,15 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
+        $is_followed = false;
         $article = Article::find($id);
+        if (auth()->user()) {
+            if (auth()->id() != $article->user->id) {
+                $is_followed = !Follow::where('user_id', auth()->user()->id)->where('user_followed_id', $article->user->id)->get()->isEmpty();
+            }
+        }
 
-        return view('article.show', ['article' => $article]);
+        return view('article.show', ['article' => $article, 'is_followed' => $is_followed]);
     }
 
     /**

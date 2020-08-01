@@ -48,3 +48,7 @@ Route::get('/response/{id}/list', 'ResponseController@index')->name('response.li
  */
 
 Route::post('/follow', 'FollowController@follow')->name('follow');
+
+Route::get('/following', 'FollowController@following')->name('following');
+
+Route::get('/follower', 'FollowController@follower')->name('follower');
